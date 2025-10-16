@@ -22,8 +22,15 @@ This plugin writes entries into the file `~/files/private/secrets.json` (NOTE: T
 
 Before this Terminus plugin can be used, the `secrets.json` file must be created in each environment. To create the file call the secrets set command and add a key. This will automatically create the file in that environment.
 ```
-terminus secrets:set site.env key value
+terminus secrets:set site key value
 ```
+
+Then, you can override the value for whatever environment you need to override
+
+```
+terminus secret:site site.dev mysecretnonexist foobar
+```
+
 The secrets directory is **not** copied to `test` and `live` during deployments (as it is not tracked in the project repository); you must therefore individually set secrets on each environment where you would like them to be available.
 
 **Also, be aware that your secrets may be overwritten by filesystem sync operations. For instance, if you check the "pull files and database from Live" option when deploying to `TEST`, that will overwrite the `TEST` env with secrets (or a lack thereof) in `LIVE`. If you intend to use `secrets.json` for production, make sure you set the same file in all environments to avoid confusion.**
